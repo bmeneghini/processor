@@ -1,0 +1,16 @@
+module topLevel(pClock, mClock, reset, run, bus, data, done);
+  input pClock, mClock, reset, run;  
+  output [15:0] bus, data;
+  output done;  
+   
+  wire [4:0] address;
+  wire [15:0] inst;
+
+  counter contador(reset, mClock, address);
+  memory rom0(address, mClock, inst);
+  processor proc(inst, reset, pClock, run, done, bus);
+  //processor(Din, reset, clock, run, done, busWire);
+  
+  assign data = inst;
+  
+endmodule
